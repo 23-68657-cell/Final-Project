@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SM - 3101</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="../Main/main.html" class="logo">RGO</a>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search...">
+      <button type="button" id="searchBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+      </button>
+    </div>
+
+    <div class="nav-actions">
+      <div class="nav-links">
+        <a href="../Main/main.html">Home</a>
+        <a href="../Login/login.html">Login</a>
+        <a href="../Signup/signup.html">Sign Up</a>
+      </div>
+      <button id="menuBtn" class="menu-btn">☰</button>
+    </div>
+    <div id="dropdownMenu" class="dropdown-menu">
+      <a href="orders.html">My Orders</a>
+      <a href="#">Settings</a>
+      <a href="#">Contact Us</a>
+      <a href="#">Logout</a>
+    </div>
+  </nav>
+
+  <header class="hero-section">
+    <div class="hero-content">
+      <h2 class="hero-title">Resource Generation Office</h2>
+      <p class="hero-subtitle">Quality supplies, delivered right to your department.</p>
+      <button class="hero-cta">Browse Products</button>
+    </div>
+  </header>
+
+  <div class="filter-section">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="in">In Stock</button>
+    <button class="filter-btn" data-filter="out">Out of Stock</button>
+  </div>
+
+  <div class="product-section">
+    <h2 class="section-title">Available Products</h2>
+    <div id="availableProducts" class="product-gallery"></div>
+
+    <h2 class="section-title">Unavailable Products</h2>
+    <div id="unavailableProducts" class="product-gallery"></div>
+  </div>
+
+  <div id="orderModal" class="modal">
+    <div class="modal-content">
+      <h3 id="modalName"></h3>
+      <p id="modalPrice"></p>
+      <p id="modalStatus"></p>
+      <label>Quantity:</label>
+      <input type="number" id="qty" min="1" value="1">
+      <div class="modal-actions">
+        <button id="confirmOrderBtn">Confirm Order</button>
+        <button id="cancelOrderBtn">Cancel</button>
+      </div>
+      <button id="closeModalBtn" class="close-btn">×</button>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
