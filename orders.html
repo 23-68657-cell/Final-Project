@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Orders - Resource Generation Office</title>
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="orders.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="main.html" class="logo">RGO</a>
+    <!-- The search bar is not used on this page, but we add it for layout consistency -->
+    <div class="search-box" style="visibility: hidden;">
+      <input type="text">
+      <button type="button"></button>
+    </div>
+
+    <div class="nav-actions">
+      <div class="nav-links">
+        <a href="main.html">Home</a>
+        <a href="../Login/login.html">Login</a>
+        <a href="../Signup/signup.html">Sign Up</a>
+      </div>
+      <button id="menuBtn" class="menu-btn">☰</button>
+    </div>
+    <div id="dropdownMenu" class="dropdown-menu">
+      <a href="orders.html">My Orders</a>
+      <a href="#">Settings</a>
+      <a href="#">Contact Us</a>
+      <a href="#">Logout</a>
+    </div>
+  </nav>
+
+  <main class="orders-container">
+    <h1>My Orders</h1>
+    <div class="order-list">
+      <!-- Sample Order 1 -->
+      <div class="order-item">
+        <div class="order-header">
+          <span class="order-id">Order #12345</span>
+          <span class="order-date">Date: 2025-11-10</span>
+          <span class="order-status delivered">Delivered</span>
+        </div>
+        <div class="order-body">
+          <p><strong>Item:</strong> Laptop, <strong>Quantity:</strong> 1, <strong>Total:</strong> ₱45000.00</p>
+        </div>
+      </div>
+      <!-- Sample Order 2 -->
+      <div class="order-item">
+        <div class="order-header">
+          <span class="order-id">Order #12346</span>
+          <span class="order-date">Date: 2025-11-15</span>
+          <span class="order-status pending">Pending</span>
+        </div>
+        <div class="order-body">
+          <p><strong>Item:</strong> Printer, <strong>Quantity:</strong> 2, <strong>Total:</strong> ₱11000.00</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+</body>
+</html>
