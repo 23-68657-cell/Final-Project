@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - RGO</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons (Lucide via unpkg for lightweight icons) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-white text-slate-900 antialiased">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 w-full z-50 bg-white text-slate-900 border-b border-slate-200 shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Logo -->
+                <a href="index.html" class="flex-shrink-0 flex items-center gap-3">
+                    <img src="Products/RGO.jpg" alt="RGO Logo" class="h-12 w-auto">
+                    <div class="hidden sm:flex flex-col">
+                        <span class="font-extrabold text-2xl text-slate-900 tracking-tighter leading-none">RGO</span>
+                        <span class="text-[10px] font-bold text-[#b91c1c] uppercase tracking-widest leading-none">Resource Generation Office</span>
+                    </div>
+                </a>
+
+                <!-- Navigation Items (Right Side) -->
+                <div class="flex items-center gap-6">
+                    <!-- Visible Links -->
+                    <div class="flex items-center space-x-6">
+                        <a href="index.html" class="text-slate-700 font-bold hover:text-[#b91c1c] transition-colors hidden md:block">Home</a>
+                        <a href="login.html" class="text-slate-700 font-bold hover:text-[#b91c1c] transition-colors">Login</a>
+                        <a href="signup.html" class="text-slate-700 font-bold hover:text-[#b91c1c] transition-colors">Sign Up</a>
+                        <!-- Cart Icon -->
+                        <button id="cart-btn" class="relative text-slate-700 font-bold hover:text-[#b91c1c] transition-colors">
+                            <i data-lucide="shopping-cart" class="w-6 h-6"></i>
+                            <span id="cart-count" class="absolute -top-2 -right-2 bg-[#b91c1c] text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                        </button>
+                    </div>
+
+                    <!-- Separator -->
+                    <div class="h-8 w-px bg-slate-200"></div>
+
+                    <!-- Menu Button with Dropdown -->
+                    <div class="relative">
+                        <button id="menu-btn" class="text-slate-700 hover:text-[#b91c1c] focus:outline-none p-1">
+                            <i data-lucide="menu" class="w-8 h-8"></i>
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div id="dropdown-menu" class="hidden absolute right-0 mt-4 w-56 bg-white rounded-lg shadow-xl py-2 text-slate-800 z-50 border border-slate-100">
+                            <a href="announcements.html" class="block px-6 py-3 hover:bg-red-50 hover:text-[#b91c1c] font-medium transition-colors">Announcements</a>
+                            <a href="about.html" class="block px-6 py-3 hover:bg-red-50 hover:text-[#b91c1c] font-medium transition-colors">About Us</a>
+                            <a href="notifications.html" class="block px-6 py-3 hover:bg-red-50 hover:text-[#b91c1c] font-medium transition-colors">Notifications</a>
+                            <a href="contact.html" class="block px-6 py-3 hover:bg-red-50 hover:text-[#b91c1c] font-medium transition-colors">Contact Us</a>
+                            <div class="border-t border-gray-100 my-2"></div>
+                            <a href="#" class="block px-6 py-3 hover:bg-red-50 hover:text-[#b91c1c] font-medium text-red-600 transition-colors">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-white pt-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
+                <div class="relative h-96 rounded-lg overflow-hidden shadow-xl">
+                    <img class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Team working">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50"></div>
+                </div>
+
+                <div class="mt-10 lg:mt-0">
+                    <h2 class="text-[#b91c1c] font-bold tracking-wide uppercase text-sm mb-2">Our Mission</h2>
+                    <p class="text-3xl font-extrabold text-slate-900 mb-4">About the Resource Generation Office</p>
+                    <p class="text-slate-600 leading-relaxed mb-6">
+                        The Resource Generation Office (RGO) is dedicated to fostering a culture of innovation and entrepreneurship within the university. We manage and operate income-generating projects that not only provide valuable resources for the academic community but also offer practical, hands-on experience for our students.
+                    </p>
+                    <p class="text-slate-600 leading-relaxed">
+                        From official university merchandise to essential school supplies, our goal is to deliver quality and convenience while supporting the university's strategic objectives.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-slate-400 text-sm text-center">© 2024 Resource Generation Office. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script src="cart.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

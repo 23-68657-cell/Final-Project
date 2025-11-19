@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalog - RGO</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons (Lucide via unpkg for lightweight icons) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-white text-slate-900 antialiased">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 w-full z-50 bg-white text-slate-900 border-b border-slate-200 shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Logo -->
+                <a href="index.html" class="flex-shrink-0 flex items-center gap-3">
+                    <img src="Products/RGO.jpg" alt="RGO Logo" class="h-12 w-auto">
+                    <div class="hidden sm:flex flex-col">
+                        <span class="font-extrabold text-2xl text-slate-900 tracking-tighter leading-none">RGO</span>
+                        <span class="text-[10px] font-bold text-[#b91c1c] uppercase tracking-widest leading-none">Resource Generation Office</span>
+                    </div>
+                </a>
+
+                <!-- Navigation Items (Right Side) -->
+                <div class="flex items-center gap-6">
+                    <!-- Visible Links -->
+                    <div class="flex items-center space-x-6">
+                        <a href="index.html" class="text-slate-700 font-bold hover:text-[#b91c1c] transition-colors hidden md:block">Home</a>
+                        <a href="login.html" class="text-slate-700 font-bold hover:text-[#b91c1c] transition-colors hidden md:block">Login</a>
+                        <a href="signup.html" class="text-slate-700 font-bold hover:text-[#b91c1c] transition-colors hidden md:block">Sign Up</a>
+                        <!-- Cart Icon -->
+                        <button id="cart-btn" class="relative text-slate-700 font-bold hover:text-[#b91c1c] transition-colors">
+                            <i data-lucide="shopping-cart" class="w-6 h-6"></i>
+                            <span id="cart-count" class="absolute -top-2 -right-2 bg-[#b91c1c] text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                        </button>
+                    </div>
+
+                    <!-- Separator -->
+                    <div class="h-8 w-px bg-slate-200"></div>
+
+                    <!-- Menu Button with Dropdown -->
+                    <div class="relative">
+                        <button id="menu-btn" class="text-slate-700 hover:text-[#b91c1c] focus:outline-none p-1">
+                            <i data-lucide="menu" class="w-8 h-8"></i>
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div id="dropdown-menu" class="hidden absolute right-0 mt-4 w-56 bg-white rounded-lg shadow-xl py-2 text-slate-800 z-50 border border-slate-100">
+                            <a href="announcements.html" class="block px-6 py-3 hover:bg-red-50 hover:text-[#b91c1c] font-medium transition-colors">Announcements</a>
+                            <a href="about.html" class="block px-6 py-3 hover:bg-red-50 hover:text-[#b91c1c] font-medium transition-colors">About Us</a>
+                            <a href="notifications.html" class="block px-6 py-3 hover:bg-red-50 hover:text-[#b91c1c] font-medium transition-colors">Notifications</a>
+                            <a href="contact.html" class="block px-6 py-3 hover:bg-red-50 hover:text-[#b91c1c] font-medium transition-colors">Contact Us</a>
+                            <div class="border-t border-gray-100 my-2"></div>
+                            <a href="#" class="block px-6 py-3 hover:bg-red-50 hover:text-[#b91c1c] font-medium text-red-600 transition-colors">Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Full Shop Section -->
+    <section id="products" class="py-24 bg-slate-50 pt-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-4">
+                <div>
+                    <h2 class="text-[#b91c1c] font-bold tracking-wide uppercase text-sm mb-2">Official Store</h2>
+                    <p class="text-3xl md:text-4xl font-extrabold text-slate-900">Full Product Catalog</p>
+                </div>
+                <!-- Filter and Search container -->
+                <div class="flex flex-col md:flex-row items-center gap-4 w-full md:w-auto">
+                    <!-- Search Bar -->
+                    <div class="relative w-full md:w-auto">
+                        <input type="text" id="product-search" placeholder="Search products..." class="pl-10 pr-4 py-2 border border-slate-300 rounded-md w-full md:w-64 text-sm font-medium focus:ring-2 focus:ring-[#b91c1c] focus:border-[#b91c1c] transition-colors">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i data-lucide="search" class="w-4 h-4 text-slate-400"></i>
+                        </div>
+                    </div>
+                    <!-- Filter Tabs -->
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="filterProducts('all')" id="btn-all" class="filter-btn px-4 py-2 bg-black text-white border border-black text-sm font-bold transition-colors rounded-md">All</button>
+                        <button onclick="filterProducts('uniform')" id="btn-uniform" class="filter-btn px-4 py-2 bg-white border border-slate-200 text-slate-600 hover:border-black hover:text-black text-sm font-bold transition-colors rounded-md">Uniforms</button>
+                        <button onclick="filterProducts('merch')" id="btn-merch" class="filter-btn px-4 py-2 bg-white border border-slate-200 text-slate-600 hover:border-black hover:text-black text-sm font-bold transition-colors rounded-md">Merch</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid Container -->
+            <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- === UNIFORMS & TEXTILES === -->
+                <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="uniform" data-name="White Cloth Textile" data-price="150" data-type="textile">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/White Cloth Textile.jpg" alt="White Cloth Textile" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Uniform Material</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">White Cloth</h3>
+                        <p class="text-xs text-slate-500 mb-3">Standard white textile for uniforms.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱150.00 <span class="text-xs text-slate-400 font-normal">/yard</span></span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+                <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="uniform" data-name="Remington Cloth Textile" data-price="150" data-type="textile">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/Remington Cloth Textile.jpg" alt="Remington Cloth Textile" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Uniform Material</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Remington Cloth</h3>
+                        <p class="text-xs text-slate-500 mb-3">Durable remington textile for pants.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱150.00 <span class="text-xs text-slate-400 font-normal">/yard</span></span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+                <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="uniform" data-name="Checkered Cloth Textile" data-price="150" data-type="textile">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/Checkered Cloth Textile.jpg" alt="Checkered Cloth Textile" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Uniform Material</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Checkered Cloth</h3>
+                        <p class="text-xs text-slate-500 mb-3">Classic checkered textile for skirts.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱150.00 <span class="text-xs text-slate-400 font-normal">/yard</span></span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+                <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="uniform" data-name="White College Blouse" data-type="sized" data-options="Small - XL:1.5:225;2XL - 3XL:1.75:262.50;4XL - 5XL:2:300">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden relative"><span class="absolute top-2 left-2 bg-slate-800 text-white text-[10px] font-bold px-2 py-0.5">Embroidered</span><img src="Products/White College Blouse.jpg" alt="White College Blouse" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Uniform</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">White College Blouse</h3>
+                        <p class="text-xs text-slate-500 mb-3">Available in S-XL, 2XL-3XL, 4XL-5XL.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">From ₱225.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="uniform" data-name="Checkered College Skirt" data-type="sized" data-options="Small - Large:1.5:225;XL - 5XL:1.75:262.50">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/Checkered College Skirt.jpg" alt="Checkered College Skirt" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Uniform</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Checkered College Skirt</h3>
+                        <p class="text-xs text-slate-500 mb-3">Available in S-L, XL-5XL.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">From ₱225.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="uniform" data-name="White College Barong" data-type="sized" data-options="18 - Large:1.5:225;XL - 2XL:1.75:262.50;3XL - 5XL:2:300">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden relative"><span class="absolute top-2 left-2 bg-slate-800 text-white text-[10px] font-bold px-2 py-0.5">Embroidered</span><img src="Products/White College Barong.jpg" alt="White College Barong" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Uniform</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">White College Barong</h3>
+                        <p class="text-xs text-slate-500 mb-3">Available in 18-Large, XL-5XL.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">From ₱225.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="uniform" data-name="Remington College Pants" data-type="sized" data-options="16 - 20:1:150;22 - 40:1.5:225;42 - 46:2:300">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/Remington College Pants.jpg" alt="Remington College Pants" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Uniform</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Remington College Pants</h3>
+                        <p class="text-xs text-slate-500 mb-3">Sizes 16-20, 22-40, 42-46.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">From ₱150.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                <!-- === SCHOOL ESSENTIALS (Categorized as Merch) === -->
+                <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="Univeristy Pin" data-price="65" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/univeristy pin.jpg" alt="Univeristy Pin" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Essential</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Univeristy Pin</h3>
+                        <p class="text-xs text-slate-500 mb-3">Official logo pin.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱65.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="ID Lace" data-price="50" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/ID Lace.jpg" alt="ID Lace" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Essential</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">ID Lace</h3>
+                        <p class="text-xs text-slate-500 mb-3">Standard lanyard.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱50.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                <!-- === MERCHANDISE === -->
+                 <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="Gift Set with Box" data-price="1200" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden relative"><span class="absolute top-2 left-2 bg-[#b91c1c] text-white text-[10px] font-bold px-2 py-0.5">Premium</span><img src="Products/Gift Set with Box.jpg" alt="Gift Set with Box" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Gift Set with Box</h3>
+                        <p class="text-xs text-slate-500 mb-3">Complete premium gift package.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱1,200.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="Duffle Bag" data-price="600" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/Duffle Bag.jpg" alt="Duffle Bag" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Duffle Bag</h3>
+                        <p class="text-xs text-slate-500 mb-3">Spacious travel bag.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱600.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="BatStateU Towel" data-price="365" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/batstateu towels.jpg" alt="BatStateU Towel" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">BatStateU Towel</h3>
+                        <p class="text-xs text-slate-500 mb-3">Premium fabric towel.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱365.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="Conference Bag" data-price="350" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden relative"><span class="absolute top-2 left-2 bg-[#b91c1c] text-white text-[10px] font-bold px-2 py-0.5">Popular</span><img src="Products/conference bag laptop.jpg" alt="Conference Bag" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Conference Bag</h3>
+                        <p class="text-xs text-slate-500 mb-3">Fits laptops and documents.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱350.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+                
+                <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="2026 Calendar" data-price="350" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/2026 Calendar.jpg" alt="2026 Calendar" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">2026 Calendar</h3>
+                        <p class="text-xs text-slate-500 mb-3">Wall/Desk calendar.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱350.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="Thermos Cup" data-price="325" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/Thermos Cup.jpg" alt="Thermos Cup" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Thermos Cup</h3>
+                        <p class="text-xs text-slate-500 mb-3">Insulated beverage cup.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱325.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="Memo Cube" data-price="320" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/Memo Cube.jpg" alt="Memo Cube" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Memo Cube</h3>
+                        <p class="text-xs text-slate-500 mb-3">Desk note organizer.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱320.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+                
+                <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="Cable Organizer" data-price="300" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/Cable Organizer.jpg" alt="Cable Organizer" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Cable Organizer</h3>
+                        <p class="text-xs text-slate-500 mb-3">Keep cords tidy.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱300.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                 <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="3-Fold Auto Umbrella" data-price="300" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/3-Fold Auto Umbrella.jpg" alt="3-Fold Auto Umbrella" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">3-Fold Auto Umbrella</h3>
+                        <p class="text-xs text-slate-500 mb-3">Automatic open/close.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱300.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                 <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="Premium Notebook" data-price="300" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/Notebook.jpg" alt="Premium Notebook" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Premium Notebook</h3>
+                        <p class="text-xs text-slate-500 mb-3">High quality paper.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱300.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                 <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="Folding Umbrella" data-price="270" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/Folding Umbrella.jpg" alt="Folding Umbrella" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Folding Umbrella</h3>
+                        <p class="text-xs text-slate-500 mb-3">Compact and durable.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱270.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                 <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="Umbrella (Long)" data-price="208" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/umbrella long.jpg" alt="Umbrella (Long)" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Umbrella (Long)</h3>
+                        <p class="text-xs text-slate-500 mb-3">Full size protection.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱208.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="Tote Bag" data-price="200" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/Tote Bag.jpg" alt="Tote Bag" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Tote Bag</h3>
+                        <p class="text-xs text-slate-500 mb-3">Stylish tote.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱200.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="Vacuum Mug" data-price="195" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/customized mug.jpg" alt="Customized Mug" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Vacuum Mug</h3>
+                        <p class="text-xs text-slate-500 mb-3">Keeps drinks hot/cold.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱195.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                 <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="Faux Leather Notebook" data-price="195" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/Faux Leather Notebook.jpg" alt="Faux Leather Notebook" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Faux Leather Notebook</h3>
+                        <p class="text-xs text-slate-500 mb-3">Professional journal.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱195.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="Vacuum Tumbler" data-price="175" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/Vacuum Tumbler.jpg" alt="Vacuum Tumbler" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Vacuum Tumbler</h3>
+                        <p class="text-xs text-slate-500 mb-3">Sleek design.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱175.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                 <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="Hand Towel" data-price="165" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/Hand Towel.jpg" alt="Hand Towel" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Hand Towel</h3>
+                        <p class="text-xs text-slate-500 mb-3">Soft cotton.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱165.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="Cutlery w/ Case" data-price="140" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/cutlery with case.jpg" alt="Cutlery w/ Case" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Cutlery w/ Case</h3>
+                        <p class="text-xs text-slate-500 mb-3">Portable set with hard case.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱140.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+                
+                 <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="Customized Mug" data-price="135" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/Customized Mug.jpg" alt="Customized Mug" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Customized Mug</h3>
+                        <p class="text-xs text-slate-500 mb-3">Official branding.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱135.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="Cutlery w/ Pouch" data-price="130" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/cutlery with pouch.jpg" alt="Cutlery w/ Pouch" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Cutlery w/ Pouch</h3>
+                        <p class="text-xs text-slate-500 mb-3">Portable set with soft pouch.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱130.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="Mini Fan" data-price="130" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/Mini Fan.jpg" alt="Mini Fan" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Mini Fan</h3>
+                        <p class="text-xs text-slate-500 mb-3">Portable cooling.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱130.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                 <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="Canvas Bag" data-price="120" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/Canvas Bag.jpg" alt="Canvas Bag" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Canvas Bag</h3>
+                        <p class="text-xs text-slate-500 mb-3">Durable tote.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱120.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="Mouse Pad" data-price="120" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/Mouse Pad.jpg" alt="Mouse Pad" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Mouse Pad</h3>
+                        <p class="text-xs text-slate-500 mb-3">Anti-slip rubber base.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱120.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="Wooden Pen w/ Case" data-price="110" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/wooden ballpen.jpg" alt="Wooden Pen w/ Case" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Wooden Pen w/ Case</h3>
+                        <p class="text-xs text-slate-500 mb-3">Elegant writing instrument.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱110.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                 <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="Bag Tag" data-price="50" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/Bag Tag.jpg" alt="Bag Tag" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Bag Tag</h3>
+                        <p class="text-xs text-slate-500 mb-3">Identification tag.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱50.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+                <div class="product-card group bg-white border border-slate-200 hover:border-[#b91c1c] hover:shadow-lg transition-all duration-300 flex flex-col" data-category="merch" data-name="Ballpen w/ Lace" data-price="20" data-type="simple">
+                    <div class="h-48 bg-slate-100 flex items-center justify-center overflow-hidden"><img src="Products/ballpen with lace.jpg" alt="Ballpen w/ Lace" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"></div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Merch</div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-1">Ballpen w/ Lace</h3>
+                        <p class="text-xs text-slate-500 mb-3">Standard pen with lanyard.</p>
+                        <div class="mt-auto pt-3 border-t border-slate-100 flex justify-between items-center"><span class="font-bold text-[#b91c1c]">₱20.00</span><button class="add-to-cart-btn bg-black text-white p-1.5 hover:bg-[#b91c1c] transition-colors"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT OPTIONS MODAL -->
+    <div id="options-modal" class="fixed inset-0 z-[200] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity backdrop-blur-sm" onclick="closeOptionsModal()"></div>
+        <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
+                <div id="options-modal-panel" class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm border border-slate-100">
+                    <button onclick="closeOptionsModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-500"><i data-lucide="x" class="w-6 h-6"></i></button>
+                    <div class="p-6">
+                        <div class="text-center">
+                            <h3 id="options-product-name" class="text-2xl font-bold leading-6 text-gray-900 mb-4">Product Name</h3>
+                        </div>
+                        <div id="options-container" class="space-y-4 mt-4 text-left">
+                            <!-- Options (size/yards) will be injected here -->
+                        </div>
+                        <div id="options-info" class="mt-4 p-3 bg-slate-50 rounded-md text-sm text-slate-600 border border-slate-200 hidden">
+                            <!-- Dynamic info about yards and price will appear here -->
+                        </div>
+                        <div class="mt-6">
+                            <button id="options-add-to-cart-btn" class="flex w-full justify-center rounded-md bg-[#b91c1c] px-3 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#b91c1c] text-lg">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <div class="col-span-2 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="bg-[#b91c1c] text-white p-1.5">
+                            <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                        </div>
+                        <span class="font-black text-xl text-slate-900 tracking-tighter">RGO</span>
+                    </div>
+                    <p class="text-slate-500 text-sm leading-relaxed max-w-xs">
+                        The official Resource Generation Office store. Providing quality supplies and merchandise for professionals and students alike.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-slate-900 mb-4 uppercase text-xs tracking-wider">Shop</h4>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li><a href="catalog.html" class="hover:text-[#b91c1c] hover:underline">All Products</a></li>
+                        <li><a href="#" class="hover:text-[#b91c1c] hover:underline">Apparel</a></li>
+                        <li><a href="#" class="hover:text-[#b91c1c] hover:underline">Stationery</a></li>
+                        <li><a href="#" class="hover:text-[#b91c1c] hover:underline">Digital Assets</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-slate-900 mb-4 uppercase text-xs tracking-wider">Support</h4>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li><a href="#" class="hover:text-[#b91c1c] hover:underline">Order Status</a></li>
+                        <li><a href="#" class="hover:text-[#b91c1c] hover:underline">Shipping Info</a></li>
+                        <li><a href="#" class="hover:text-[#b91c1c] hover:underline">Returns</a></li>
+                        <li><a href="#" class="hover:text-[#b91c1c] hover:underline">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-slate-900 mb-4 uppercase text-xs tracking-wider">Legal</h4>
+                    <ul class="space-y-2 text-sm text-slate-600">
+                        <li><a href="#" class="hover:text-[#b91c1c] hover:underline">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-[#b91c1c] hover:underline">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-100 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-slate-400 text-sm">© 2024 Resource Generation Office. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-slate-400 hover:text-[#b91c1c] transition-colors"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-[#b91c1c] transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-[#b91c1c] transition-colors"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODALS (omitted for brevity, but should be included here if needed on this page) -->
+
+    <!-- Page Scripts -->
+    <script src="script.js"></script>
+    <script src="cart.js"></script>
+    <script>
+        lucide.createIcons(); // Initialize icons after all scripts are loaded
+    </script>
+
+    <!-- Cart Overlay -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-[140] hidden transition-opacity duration-300"></div>
+
+    <!-- CART SIDEBAR -->
+    <div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-[150] transform translate-x-full">
+        <div class="flex flex-col h-full">
+            <!-- Header -->
+            <div class="flex justify-between items-center p-5 border-b border-slate-200 bg-slate-50">
+                <h3 class="text-2xl font-bold text-slate-900">My Cart</h3>
+                <button id="close-cart-btn" class="text-slate-500 hover:text-[#b91c1c]">
+                    <i data-lucide="x" class="w-7 h-7"></i>
+                </button>
+            </div>
+
+            <!-- Cart Content -->
+            <div id="cart-content" class="flex-1 overflow-y-auto p-5 cart-scroll">
+                <!-- Cart items will be rendered here by cart.js -->
+            </div>
+
+            <!-- Footer -->
+            <div class="p-5 border-t border-slate-200 bg-white">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-lg font-bold text-slate-600">Subtotal:</span>
+                    <span id="cart-total" class="text-2xl font-extrabold text-slate-900">₱0.00</span>
+                </div>
+                <button id="confirm-order-btn" class="w-full bg-[#b91c1c] text-white font-bold py-4 rounded-none hover:bg-red-800 transition-colors uppercase tracking-wider flex items-center justify-center gap-2">
+                    Confirm Order
+                </button>
+                <p id="cart-login-prompt" class="text-xs text-slate-400 mt-3 text-center transition-all duration-300">Login will be required to complete your purchase.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
