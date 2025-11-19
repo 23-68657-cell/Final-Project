@@ -1,6 +1,7 @@
 # Final-Project
 
 To properly work the code you should make a folder for each file.
-I dont know if you can make any name on the main file but I named mine Ordering System (SIA)
-Main folder named "Main", Login folder is "Login", Signup is "Signup", on Forgot Password is 
-"Forgot Password"
+Make sure the files are located inside the XAMPP files
+Local Disk > xampp > htdocs
+Also before running the files make sure the xampp are started
+Apache and MySQL
