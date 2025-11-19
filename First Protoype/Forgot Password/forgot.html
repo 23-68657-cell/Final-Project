@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forgot Password - SM 3101</title>
+  <link rel="stylesheet" href="forgot.css">
+</head>
+<body>
+  <div class="forgot-container">
+    <h1>Forgot Password</h1>
+    <p>Enter your G-Suite Account or SR-Code to reset your password.</p>
+
+    <form id="forgotForm">
+      <div class="input-group">
+        <label for="identifier">G-Suite Account or SR-Code</label>
+        <input type="text" id="identifier" placeholder="Enter your G-Suite or SR-Code" required>
+      </div>
+
+      <button type="submit">Reset Password</button>
+    </form>
+
+    <p class="message" id="successMessage">✅ Password reset link sent to your G-Suite email!</p>
+
+    <div class="bottom-links">
+      <a href="../Main/main.html">Home</a> |
+      <a href="../Login/login.html">Back to Login</a>
+
+
+    </div>
+  </div>
+
+  <script src="forgot.js"></script>
+</body>
+</html>
